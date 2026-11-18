@@ -8,6 +8,8 @@ Hébergé sur GitHub, déployé automatiquement par Netlify (dossier de publicat
 - `index.html` — squelette des sections (ne contient pas de contenu perso)
 - `js/data.js` — **TOUT le contenu** : pseudo, bio, photo, logiciels, stats, contacts, montages, playlists, avis
 - `js/main.js` — génère le site à partir de `data.js`
+- `js/tabs.js` — onglets Accueil (montages + playlist) / À propos (fiche joueur) / Contact, partagé V1 et V2 :
+  chaque vue est un `[data-view]`, chaque onglet un `[data-tab]`, l'ancre de l'URL choisit la vue
 - `css/style.css` — toute la DA
 - `assets/avatar.svg` — avatar provisoire → à remplacer par la vraie photo de profil (`assets/avatar.png`)
 - `assets/refs/` — les 2 images de référence de la DA (à regarder avant toute modif visuelle)

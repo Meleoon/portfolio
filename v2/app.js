@@ -294,7 +294,7 @@
       for (let i = 0; i < img.data.length; i += 4) { const v = (Math.random() * 255) | 0; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; }
       gc.putImageData(img, 0, 0);
     };
-    noise(); setInterval(() => { if (!document.hidden) noise(); }, 90);
+    noise(); setInterval(() => { if (!document.hidden) noise(); }, 160);
   } else g.remove();
 
   /* ---------- amorce de film (1 fois par visite) ---------- */

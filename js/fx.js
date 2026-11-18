@@ -101,7 +101,7 @@
     const ctx = g.getContext("2d"); g.width = 160; g.height = 100;
     const img = ctx.createImageData(160, 100); let f = 0;
     (function loop() {
-      if (f++ % 3 === 0) {
+      if (f++ % 8 === 0) { // grain renouvelé ~7 fois/s seulement (moins agressif)
         const d = img.data;
         for (let p = 0; p < d.length; p += 4) { const v = (Math.random() * 255) | 0; d[p] = d[p + 1] = d[p + 2] = v; d[p + 3] = 255; }
         ctx.putImageData(img, 0, 0);

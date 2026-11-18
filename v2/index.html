@@ -22,14 +22,17 @@
 
   <!-- ===== HUD ===== -->
   <header class="hud">
-    <a class="hud-logo" href="#top"><img id="hudAvatar" alt="" /><span id="hudName">MELEON</span></a>
-    <nav class="hud-nav" aria-label="Sections">
-      <a href="#profil">Profil</a><a href="#montages">Montages</a><a href="#playlists">Playlists</a><a href="#avis" id="navAvis">Avis</a><a href="#contact">Contact</a>
-    </nav>
+    <a class="hud-logo" href="#accueil"><img id="hudAvatar" alt="" /><span id="hudName">MELEON</span><b aria-hidden="true">★</b></a>
     <div class="hud-rec" aria-hidden="true"><span class="dot"></span>REC <span id="tc">00:00:00:00</span></div>
-    <a class="btn btn-lime hud-cta" href="#contact">On bosse ? →</a>
+    <nav class="tabs" aria-label="Pages">
+      <a data-tab="accueil" href="#accueil">Accueil</a><a data-tab="a-propos" href="#a-propos">À propos</a><a data-tab="contact" href="#contact">Contact</a>
+    </nav>
     <div class="hud-xp" aria-hidden="true"><span id="xp"></span></div>
   </header>
+
+  <main>
+  <!-- ===================== VUE ACCUEIL : montages puis playlist ===================== -->
+  <div class="view" id="accueil" data-view>
 
   <!-- ===== HERO : bureau ===== -->
   <section class="hero" id="top">
@@ -93,37 +96,6 @@
 
   <div class="marquee"><div class="marquee-track" data-items="Montage|Shorts|Motion design|Sound design|Dispo maintenant"></div></div>
 
-  <!-- ===== CHIFFRES ===== -->
-  <section class="numbers"><div class="wrap num-grid" id="numGrid"></div></section>
-
-  <!-- ===== PROFIL ===== -->
-  <section class="sec sec-dark" id="profil">
-    <div class="wrap profile">
-      <div class="lvl-head reveal">
-        <p class="lvl" data-level></p>
-        <h2 class="cut">Meet the player</h2>
-        <p class="lvl-name" id="playerName"></p>
-        <p class="lvl-note">Tout ce qu'il faut savoir avant de lancer la partie.</p>
-      </div>
-
-      <div class="win win-pinkp bio-win reveal">
-        <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">bio.txt</span><span class="win-x">×</span></div>
-        <div class="win-body scroll bio" id="bio" tabindex="0"></div>
-        <p class="scroll-hint" id="bioHint">(ça se scrolle)</p>
-      </div>
-
-      <div class="profile-side">
-        <div class="win reveal">
-          <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">armes.exe</span><span class="win-x">×</span></div>
-          <div class="win-body"><ul class="tools" id="tools"></ul></div>
-        </div>
-        <div class="win win-black reveal">
-          <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">stats.sav</span><span class="win-x">×</span></div>
-          <div class="win-body" id="stats"></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <div class="tl" data-seq="SEQ_01 — MONTAGES"></div>
 
@@ -154,30 +126,72 @@
     </div>
   </section>
 
+  </div>
+
+  <!-- ===================== VUE À PROPOS : fiche joueur, chiffres, avis ===================== -->
+  <div class="view" id="a-propos" data-view hidden>
+  <!-- ===== PROFIL ===== -->
+  <section class="sec sec-dark" id="profil">
+    <div class="wrap profile">
+      <div class="lvl-head reveal">
+        <p class="lvl">PLAYER 01</p>
+        <h2 class="cut">Meet the player</h2>
+        <p class="lvl-name" id="playerName"></p>
+        <p class="lvl-note">Tout ce qu'il faut savoir avant de lancer la partie.</p>
+      </div>
+
+      <div class="win win-pinkp bio-win reveal">
+        <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">bio.txt</span><span class="win-x">×</span></div>
+        <div class="win-body scroll bio" id="bio" tabindex="0"></div>
+        <p class="scroll-hint" id="bioHint">(ça se scrolle)</p>
+      </div>
+
+      <div class="profile-side">
+        <div class="win reveal">
+          <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">armes.exe</span><span class="win-x">×</span></div>
+          <div class="win-body"><ul class="tools" id="tools"></ul></div>
+        </div>
+        <div class="win win-black reveal">
+          <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">stats.sav</span><span class="win-x">×</span></div>
+          <div class="win-body" id="stats"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHIFFRES ===== -->
+  <section class="numbers"><div class="wrap num-grid" id="numGrid"></div></section>
+
   <!-- ===== AVIS (masquable via afficherAvis dans data.js) ===== -->
   <div class="marquee" id="mqAvis"><div class="marquee-track" data-items="Avis clients|Ils en parlent"></div></div>
   <section class="sec sec-paper" id="avis">
     <div class="wrap">
-      <span class="tag-black" data-level></span>
+      <span class="tag-black">AVIS !!</span>
       <h2 class="h-big cut reveal">Kind words</h2>
       <div class="reviews" id="reviews"></div>
     </div>
   </section>
+  </div>
+
+  <!-- ===================== VUE CONTACT ===================== -->
+  <div class="view" id="contact" data-view hidden>
 
   <div class="tl" data-seq="SEQ_02 — FINAL"></div>
 
   <!-- ===== CONTACT ===== -->
-  <section class="sec sec-lime contact" id="contact">
+  <section class="sec sec-lime contact" id="contactSec">
     <div class="wrap">
-      <span class="tag-black" data-level></span>
+      <span class="tag-black">INSERT COIN</span>
       <h2 class="h-big cut reveal">On monte ta<br />prochaine vidéo ?</h2>
       <p class="contact-status" id="contactStatus"></p>
       <div class="contact-btns" id="contactBtns"></div>
     </div>
   </section>
+  </div>
+  </main>
 
   <footer class="foot">
-    <a class="btn btn-lime" href="#top">Continue ? ↑</a>
+    <a class="btn btn-lime" href="#accueil">Continue ? ↑</a>
     <p>LAST UPDATED : <span id="lastUpdate"></span></p>
     <div class="ground" aria-hidden="true"></div>
   </footer>
@@ -187,5 +201,6 @@
 
   <script src="../js/data.js"></script>
   <script src="app.js"></script>
+  <script src="../js/tabs.js"></script>
 </body>
 </html>

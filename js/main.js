@@ -40,7 +40,8 @@
 
   // --- textes généraux ---
   document.title = `${SITE.pseudo} — Portfolio ${SITE.metier}`;
-  $("#hudXp").textContent = `XP: MONTAGE LVL ${SITE.niveau}`;
+  $("#hudName").textContent = SITE.pseudo.toUpperCase();
+  $("#hudAvatar").src = SITE.avatar;
   $("#heroName").textContent = SITE.pseudo.toUpperCase();
   $("#heroJob").textContent = SITE.metier.toUpperCase();
   $("#playerName").textContent = SITE.pseudo;
@@ -114,12 +115,8 @@
     </article>`;
   }).join("");
 
-  // --- avis (section masquée si afficherAvis: false ; le niveau Contact est alors renuméroté) ---
-  if (SITE.afficherAvis === false) {
-    ["#level4", "#marqueeAvis", "#navAvis"].forEach((s) => $(s)?.remove());
-    const h = $("#level5 .level-head h2");
-    if (h) h.innerHTML = "<span>Level</span> 04";
-  }
+  // --- avis (dans l'onglet À propos ; section masquée si afficherAvis: false) ---
+  if (SITE.afficherAvis === false) ["#level4", "#marqueeAvis"].forEach((s) => $(s)?.remove());
   if ($("#reviewsGrid")) $("#reviewsGrid").innerHTML = SITE.avis.map((a) => `
     <article class="review reveal ${a.aRemplacer ? "placeholder" : ""}" style="--r:${tilt()}">
       <div class="stars" aria-label="${a.note} sur 5">${"★".repeat(a.note)}${"☆".repeat(5 - a.note)}</div>

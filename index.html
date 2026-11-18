@@ -34,7 +34,7 @@
   <header class="hud">
     <span class="hud-xp" id="hudXp">XP: MONTAGE LVL 07</span>
     <nav class="hud-nav">
-      <a href="#level1">Profil</a> | <a href="#level2">Montages</a> | <a href="#level3">Playlists</a> | <a href="#level4">Avis</a> | <a href="#level5">Contact</a>
+      <a href="#level1">Profil</a> | <a href="#level2">Montages</a> | <a href="#level3">Playlists</a> | <span id="navAvis"><a href="#level4">Avis</a> | </span><a href="#level5">Contact</a>
     </nav>
     <span class="hud-player"><span class="rec">● REC</span><span id="tc">00:00:00:00</span><span class="heart">♥</span><span class="hp"><span id="xpFill"></span></span>PLAYER 01</span>
   </header>
@@ -101,6 +101,8 @@
       <p class="level-sub">Missions accomplies</p>
     </div>
     <div class="videos" id="videosGrid"></div>
+    <div class="zine-label shorts-label reveal" id="shortsLabel">&gt;&gt; MEILLEURS SHORTS !!</div>
+    <div class="videos shorts" id="shortsGrid"></div>
   </section>
 
   <div class="marquee"><div class="marquee-track" data-text="Playlists"></div></div>
@@ -114,7 +116,7 @@
     <div class="playlists" id="playlistsGrid"></div>
   </section>
 
-  <div class="marquee alt"><div class="marquee-track" data-text="Avis clients"></div></div>
+  <div class="marquee alt" id="marqueeAvis"><div class="marquee-track" data-text="Avis clients"></div></div>
 
   <!-- ===== LEVEL 04 : AVIS ===== -->
   <section class="level" id="level4">

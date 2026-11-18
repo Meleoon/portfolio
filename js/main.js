@@ -43,7 +43,11 @@
   $("#heroJob").textContent = SITE.metier.toUpperCase();
   $("#playerName").textContent = SITE.pseudo;
   $("#lastUpdate").textContent = SITE.derniereMaj;
-  ["#heroAvatar", "#profileAvatar"].forEach((s) => ($(s).src = SITE.avatar));
+  ["#heroAvatar", "#profileAvatar"].forEach((s) => {
+    $(s).src = SITE.avatar;
+    // une vraie photo/illustration ne doit pas être pixelisée (seul l'avatar SVG provisoire l'est)
+    if (!/\.svg$/i.test(SITE.avatar)) $(s).classList.remove("pixel");
+  });
 
   // --- bio (effet machine à écrire sur la 1re ligne) ---
   const b = SITE.bio;
@@ -62,15 +66,19 @@
   }
 
   // --- logiciels + stats ---
-  $("#toolsList").innerHTML = SITE.logiciels.map((l) => `<li>${esc(l)}</li>`).join("");
+  $("#toolsList").innerHTML = SITE.logiciels.map((l) => {
+    const { nom, style = "" } = typeof l === "string" ? { nom: l } : l;
+    const locked = style === "verrouille";
+    return `<li class="${esc(style ? "tool-" + style : "")}"${locked ? ' title="Pas encore débloqué"' : ""}>${esc(nom)}${locked ? '<small>LOCKED</small>' : ""}</li>`;
+  }).join("");
   $("#statsList").innerHTML = SITE.stats.map((s) => `
     <div class="stat"><div class="stat-top"><span>${esc(s.nom)}</span><span>${s.valeur}</span></div>
     <div class="stat-bar"><span data-w="${Math.max(0, Math.min(100, s.valeur))}"></span></div></div>`).join("");
 
   // --- montages ---
-  $("#videosGrid").innerHTML = SITE.montages.map((m, i) => `
-    <article class="win video-card reveal" style="--r:${tilt()}">
-      <div class="win-bar"><span class="win-title">montage_${String(i + 1).padStart(2, "0")}.mp4</span><span class="win-btns"><i></i><i></i><i></i></span></div>
+  const card = (m, i, short) => `
+    <article class="win video-card ${short ? "short" : ""} reveal" style="--r:${tilt()}">
+      <div class="win-bar"><span class="win-title">${short ? "short" : "montage"}_${String(i + 1).padStart(2, "0")}.mp4</span><span class="win-btns"><i></i><i></i><i></i></span></div>
       <div class="win-body">
         ${ytBlock({ vid: videoId(m.lien), label: m.titre })}
         <div class="video-info">
@@ -79,7 +87,12 @@
           <div class="tags">${(m.tags || []).map((t) => `<span>#${esc(t)}</span>`).join("")}</div>
         </div>
       </div>
-    </article>`).join("");
+    </article>`;
+  const longs = SITE.montages.filter((m) => m.format !== "short");
+  const shorts = SITE.montages.filter((m) => m.format === "short");
+  $("#videosGrid").innerHTML = longs.map((m, i) => card(m, i, false)).join("");
+  $("#shortsGrid").innerHTML = shorts.map((m, i) => card(m, i, true)).join("");
+  if (!shorts.length) $("#shortsLabel").remove();
 
   // --- playlists ---
   $("#playlistsGrid").innerHTML = SITE.playlists.map((p) => {
@@ -87,15 +100,20 @@
     return `
     <article class="zine playlist reveal" style="--r:${tilt()}">
       <div class="zine-label">&gt;&gt; PLAYLIST !!</div>
-      ${ytBlock({ list, label: p.titre })}
+      ${ytBlock({ vid: videoId(p.lien), list, label: p.titre })}
       <h3>${esc(p.titre)}</h3>
       <p>${esc(p.desc)}</p>
       ${list ? `<a class="open" href="https://www.youtube.com/playlist?list=${list}" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a>` : ""}
     </article>`;
   }).join("");
 
-  // --- avis ---
-  $("#reviewsGrid").innerHTML = SITE.avis.map((a) => `
+  // --- avis (section masquée si afficherAvis: false ; le niveau Contact est alors renuméroté) ---
+  if (SITE.afficherAvis === false) {
+    ["#level4", "#marqueeAvis", "#navAvis"].forEach((s) => $(s)?.remove());
+    const h = $("#level5 .level-head h2");
+    if (h) h.innerHTML = "<span>Level</span> 04";
+  }
+  if ($("#reviewsGrid")) $("#reviewsGrid").innerHTML = SITE.avis.map((a) => `
     <article class="review reveal ${a.aRemplacer ? "placeholder" : ""}" style="--r:${tilt()}">
       <div class="stars" aria-label="${a.note} sur 5">${"★".repeat(a.note)}${"☆".repeat(5 - a.note)}</div>
       <p>« ${esc(a.texte)} »</p>

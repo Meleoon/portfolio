@@ -114,7 +114,8 @@ body.booting, html:has(> body.booting) { overflow: hidden; }
   background-image: linear-gradient(rgba(11,11,16,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(11,11,16,.12) 1px, transparent 1px);
   background-size: 32px 32px; border-bottom: var(--b); }
 .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.02) 0 1px, transparent 1px 4px); }
-.hero-name { font: 400 clamp(92px, 21vw, 290px)/.78 var(--f-pix); color: var(--black); text-shadow: 7px 7px 0 var(--pink); margin-bottom: 26px; white-space: nowrap; }
+/* gros titre « MONTEUR VIDÉO » ; le pseudo passe en dessous, dans .punch */
+.hero-name { font: 400 clamp(100px, 16vw, 230px)/.92 var(--f-pix); text-transform: uppercase; color: var(--black); text-shadow: 7px 7px 0 var(--pink); margin-bottom: 30px; white-space: nowrap; }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 28px; align-items: start; }
 .punch { font: 400 clamp(52px, 6.6vw, 92px)/1 var(--f-pix); text-transform: uppercase; }
 .punch mark { color: var(--black); padding: 0 .14em; border: 3px solid var(--black); box-shadow: 5px 5px 0 var(--black); display: inline-block; margin: 6px 0; }

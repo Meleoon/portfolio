@@ -4,22 +4,24 @@
 Site portfolio statique (HTML / CSS / JS, sans framework, sans build) pour un monteur vidéo.
 Hébergé sur GitHub, déployé automatiquement par Netlify (dossier de publication : `.`, pas de commande de build).
 
-## Structure
+## Structure (site actuel, à la racine → meleon.netlify.app)
 - `index.html` — squelette des sections (ne contient pas de contenu perso)
 - `js/data.js` — **TOUT le contenu** : pseudo, bio, photo, logiciels, stats, contacts, montages, playlists, avis
-- `js/main.js` — génère le site à partir de `data.js`
-- `js/tabs.js` — onglets Accueil (montages + playlist) / À propos (fiche joueur) / Contact, partagé V1 et V2 :
+- `js/app.js` — génère le site à partir de `data.js` + effets vidéo
+- `js/tabs.js` — onglets Accueil (montages + playlist) / À propos (fiche joueur, chiffres) / Contact :
   chaque vue est un `[data-view]`, chaque onglet un `[data-tab]`, l'ancre de l'URL choisit la vue
 - `css/style.css` — toute la DA
-- `assets/avatar.svg` — avatar provisoire → à remplacer par la vraie photo de profil (`assets/avatar.png`)
-- `assets/refs/` — les 2 images de référence de la DA (à regarder avant toute modif visuelle)
+- `assets/avatar.webp` — photo de profil ; `assets/refs/` — images de référence de la DA (non publiées)
 
-## V2 en test (`v2/`)
-Deuxième version du site, en ligne sur `/v2/` pour comparer avec la V1 (racine). Elle lit le **même** `js/data.js`
-(chemins d'assets préfixés `../` dans `v2/app.js`). Mise en page « bureau » (gros nom, fenêtres déplaçables, cartes
-avec gros chiffres, rangée de stats) + effets vidéo : amorce mire/compte à rebours, viseur caméra, timecode REC,
-timelines V2/V1/A1, coupes franches RVB sur les titres, OSD magnéto au survol, grain. Texte courant en IBM Plex Mono
-pour la lisibilité. Quand le choix est fait : soit supprimer `v2/`, soit déplacer son contenu à la racine.
+Mise en page « bureau » (gros nom, fenêtres déplaçables, cartes avec gros chiffres, rangée de stats, cartes
+« Ta vidéo ? » en fin de liste) + effets vidéo : amorce mire/compte à rebours, viseur caméra, timecode REC,
+timelines V2/V1/A1, coupes franches RVB sur les titres, grain très léger. Texte courant en IBM Plex Mono (lisibilité).
+**Pas de filtre VHS sur les miniatures YouTube** (demande explicite), effets globaux discrets (ça fatiguait les yeux).
+
+## Ancienne version (archive, `v2/` → meleon.netlify.app/v2/)
+La toute première version du site (DA « jeu pixel », écran PRESS START, console rose) est gardée en mémoire dans
+`v2/` (le dossier s'appelle v2 parce que c'est l'adresse demandée). Elle lit le **même** `js/data.js` et `js/tabs.js`
+(chemins en `../`). Ne plus la faire évoluer sauf demande ; toutes les nouveautés vont sur le site à la racine.
 
 ## Direction artistique (à respecter)
 Mélange de deux références :
@@ -37,8 +39,8 @@ Règles :
 - Pas de personnages sous copyright (Transformers, Nintendo, etc.) : uniquement des éléments pixel originaux.
 - Toujours responsive mobile + respecter `prefers-reduced-motion`.
 
-## Couche VFX (css/fx.css + js/fx.js)
-Effets déjà en place, à garder cohérents :
+## Couche VFX de l'ancienne version (v2/css/fx.css + v2/js/fx.js)
+Effets de l'archive (scintillement retiré, filtre VHS des miniatures retiré) :
 - écran de boot façon cartouche (1 fois par visite, clic pour passer)
 - scanlines CRT, vignette, grain animé, flicker
 - HUD : ● REC + timecode 60 fps lié au scroll + barre d'XP = progression de la page

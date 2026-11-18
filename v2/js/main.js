@@ -41,13 +41,15 @@
   // --- textes généraux ---
   document.title = `${SITE.pseudo} — Portfolio ${SITE.metier}`;
   $("#hudName").textContent = SITE.pseudo.toUpperCase();
-  $("#hudAvatar").src = SITE.avatar;
+  // ancienne version servie depuis /v2/ : les chemins de data.js partent de la racine
+  const AV = /^(https?:|\/|data:)/.test(SITE.avatar) ? SITE.avatar : "../" + SITE.avatar;
+  $("#hudAvatar").src = AV;
   $("#heroName").textContent = SITE.pseudo.toUpperCase();
   $("#heroJob").textContent = SITE.metier.toUpperCase();
   $("#playerName").textContent = SITE.pseudo;
   $("#lastUpdate").textContent = SITE.derniereMaj;
   ["#heroAvatar", "#profileAvatar"].forEach((s) => {
-    $(s).src = SITE.avatar;
+    $(s).src = AV;
     // une vraie photo/illustration ne doit pas être pixelisée (seul l'avatar SVG provisoire l'est)
     if (!/\.svg$/i.test(SITE.avatar)) $(s).classList.remove("pixel");
   });

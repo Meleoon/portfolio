@@ -1,4 +1,4 @@
-/* Portfolio V2 — rendu à partir de ../js/data.js (le même fichier que la V1) + effets vidéo.
+/* Portfolio — rendu à partir de js/data.js + effets vidéo.
    Pour changer le contenu : modifier js/data.js, rien ici. */
 (() => {
   "use strict";
@@ -7,7 +7,7 @@
   const esc = (t = "") => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const pad = (n) => String(n).padStart(2, "0");
-  const asset = (p = "") => (/^(https?:|\/|\.\.\/|data:)/.test(p) ? p : "../" + p); // data.js est écrit pour la racine du site
+  const asset = (p = "") => p; // les chemins de data.js partent de la racine du site (comme cette page)
   // 754868 -> "755K", 1837328 -> "1,8M"
   const num = (n) => n >= 1e6 ? `${(n / 1e6).toFixed(1).replace(".", ",").replace(",0", "")}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n);
   const COLORS = ["lime", "pink", "yellow", "lav"];

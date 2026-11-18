@@ -316,22 +316,42 @@
     noise(); setInterval(() => { if (!document.hidden) noise(); }, 160);
   } else g.remove();
 
-  /* ---------- amorce de film (1 fois par visite) ---------- */
-  const leader = $("#leader");
+  /* ---------- écran de démarrage façon cartouche (1 fois par visite) ---------- */
+  const boot = $("#boot");
   let seen = false;
-  try { seen = sessionStorage.getItem("v2-leader") === "1"; sessionStorage.setItem("v2-leader", "1"); } catch { /* stockage indisponible */ }
-  if (RM || seen) leader.remove();
+  try { seen = sessionStorage.getItem("booted") === "1"; } catch { /* stockage indisponible */ }
+  if (RM || seen) boot.remove();
   else {
-    let t2;
-    const end = () => { clearTimeout(t1); clearInterval(t2); leader.remove(); };
-    leader.addEventListener("click", end);
-    const t1 = setTimeout(() => {
-      leader.classList.add("count");
-      const n = $("#leaderNum"); let f = 0, k = 3;
-      t2 = setInterval(() => {
-        f++; leader.style.setProperty("--sweep", (f % 8) * 45 + "deg");
-        if (f % 8 === 0) { k--; if (k <= 0) end(); else n.textContent = k; }
-      }, 40);
-    }, 450);
+    document.body.classList.add("booting");
+    const name = (S.pseudo || "PLAYER").toUpperCase();
+    $("#bootLogo").textContent = name;
+    const lines = [
+      "> INSERTION DE LA CARTOUCHE.......",
+      `> PROFIL : ${name}`,
+      "> IMPORT DES RUSHS........... OK",
+      "> SYNC AUDIO / VIDEO......... OK",
+      "> RENDU 60 FPS............... OK",
+      "> CHARGEMENT DES SFX......... OK",
+    ];
+    const out = $("#bootLog"), bar = $("#bootBar");
+    let i = 0, done = false;
+    const finish = () => {
+      if (done) return; done = true;
+      try { sessionStorage.setItem("booted", "1"); } catch { /* stockage indisponible */ }
+      boot.classList.add("off");
+      document.body.classList.remove("booting");
+      setTimeout(() => boot.remove(), 600);
+    };
+    const step = () => {
+      if (done) return;
+      if (i < lines.length) {
+        out.textContent += lines[i] + "\n";
+        bar.style.width = ((i + 1) / lines.length) * 100 + "%";
+        i++; setTimeout(step, 220 + Math.random() * 220);
+      } else { $("#bootPress").hidden = false; setTimeout(finish, 1100); }
+    };
+    setTimeout(step, 300);
+    boot.addEventListener("click", finish);
+    addEventListener("keydown", finish, { once: true });
   }
 })();

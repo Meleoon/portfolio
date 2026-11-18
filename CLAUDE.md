@@ -14,7 +14,7 @@ Hébergé sur GitHub, déployé automatiquement par Netlify (dossier de publicat
 - `assets/avatar.webp` — photo de profil ; `assets/refs/` — images de référence de la DA (non publiées)
 
 Mise en page « bureau » (gros nom, fenêtres déplaçables, cartes avec gros chiffres, rangée de stats, cartes
-« Ta vidéo ? » en fin de liste) + effets vidéo : amorce mire/compte à rebours, viseur caméra, timecode REC,
+« Ta vidéo ? » en fin de liste) + effets vidéo : écran de démarrage façon cartouche (repris de l'ancienne version), viseur caméra, timecode REC,
 timelines V2/V1/A1, coupes franches RVB sur les titres, grain très léger. Texte courant en IBM Plex Mono (lisibilité).
 **Pas de filtre VHS sur les miniatures YouTube** (demande explicite), effets globaux discrets (ça fatiguait les yeux).
 

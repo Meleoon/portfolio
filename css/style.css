@@ -42,22 +42,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- grain (canvas) ---------- */
 #grain { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 90; opacity: .022; image-rendering: pixelated; }
 
-/* ---------- amorce de film ---------- */
-.leader { position: fixed; inset: 0; z-index: 100; background: #121216; display: grid; place-items: center; cursor: pointer; }
-.bars { position: absolute; inset: 0 0 28% 0; display: grid; grid-template-columns: repeat(7, 1fr); }
-.bars i:nth-child(1) { background: #c0c0c0; } .bars i:nth-child(2) { background: #c0c000; }
-.bars i:nth-child(3) { background: #00c0c0; } .bars i:nth-child(4) { background: #00c000; }
-.bars i:nth-child(5) { background: #c000c0; } .bars i:nth-child(6) { background: #c00000; }
-.bars i:nth-child(7) { background: #0000c0; }
-.count-ring { display: none; position: relative; width: min(62vw, 320px); aspect-ratio: 1; border-radius: 50%; border: 6px solid var(--paper); place-items: center;
-  background: conic-gradient(rgba(244,241,232,.22) var(--sweep, 0deg), transparent 0); }
-.count-ring::before, .count-ring::after { content: ""; position: absolute; background: var(--paper); opacity: .5; }
-.count-ring::before { left: 50%; top: -30%; bottom: -30%; width: 2px; }
-.count-ring::after { top: 50%; left: -30%; right: -30%; height: 2px; }
-#leaderNum { position: relative; z-index: 1; font: 400 clamp(130px, 34vw, 230px)/1 var(--f-pix); color: var(--paper); }
-.leader.count .bars { display: none; }
-.leader.count .count-ring { display: grid; }
-.leader-skip { position: absolute; bottom: 18px; font: 12px var(--f-lab); color: #9a9aae; }
+/* ---------- écran de démarrage (repris de l'ancienne version) ---------- */
+body.booting, html:has(> body.booting) { overflow: hidden; }
+#boot { position: fixed; inset: 0; z-index: 100; background: #050507; color: var(--lime); display: grid; place-items: center; cursor: pointer; font: 17px/1.6 var(--f-body); }
+.boot-inner { width: min(560px, 88vw); }
+.boot-logo { font: 400 clamp(40px, 8vw, 66px)/1 var(--f-graff); color: var(--pink); text-shadow: 3px 3px 0 var(--mint); margin-bottom: 22px; }
+#bootLog { font: inherit; white-space: pre-wrap; min-height: 160px; }
+.boot-bar { height: 22px; border: 3px solid var(--lime); margin-top: 14px; padding: 2px; }
+.boot-bar span { display: block; height: 100%; width: 0; background: repeating-linear-gradient(90deg, var(--lime) 0 14px, transparent 14px 18px); transition: width .2s steps(4); }
+#bootPress { margin-top: 18px; font: 400 36px/1 var(--f-pix); color: var(--mint); animation: blink .7s steps(2) infinite; }
+.boot-skip { position: absolute; bottom: 20px; right: 20px; font: 12px var(--f-lab); opacity: .6; }
+#boot.off { animation: crtOff .55s steps(6) forwards; pointer-events: none; }
+@keyframes crtOff {
+  0%   { transform: scale(1); filter: brightness(1); }
+  50%  { transform: scale(1, .005); filter: brightness(4); }
+  100% { transform: scale(0, .005); filter: brightness(6); opacity: 0; }
+}
 
 /* ---------- boutons ---------- */
 .btn { display: inline-flex; align-items: center; gap: 8px; font: 700 14px var(--f-lab); text-transform: uppercase; text-decoration: none; color: var(--black);
@@ -347,7 +347,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- mouvement réduit : tout s'arrête ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .leader, #grain { display: none !important; }
+  #boot, #grain { display: none !important; }
   .reveal { opacity: 1; translate: 0 0; }
   html { scroll-behavior: auto; }
 }

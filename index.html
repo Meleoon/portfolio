@@ -12,11 +12,15 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- amorce de film : mire + compte à rebours (1 fois par visite, clic pour passer) -->
-  <div class="leader" id="leader" aria-hidden="true">
-    <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="count-ring"><span id="leaderNum">3</span></div>
-    <p class="leader-skip">clic pour passer</p>
+  <!-- écran de démarrage façon cartouche (1 fois par visite, clic ou touche pour passer) -->
+  <div id="boot" aria-hidden="true">
+    <div class="boot-inner">
+      <p class="boot-logo" id="bootLogo">MELEON</p>
+      <pre id="bootLog"></pre>
+      <div class="boot-bar"><span id="bootBar"></span></div>
+      <p id="bootPress" hidden>PRESS START</p>
+    </div>
+    <span class="boot-skip">clic pour passer</span>
   </div>
   <canvas id="grain" aria-hidden="true"></canvas>
 

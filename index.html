@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — Monteur vidéo</title>
+  <meta name="description" content="Portfolio de montage vidéo : montages, playlists, avis clients et contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixelify+Sans:wght@400;600;700&family=Silkscreen:wght@400;700&family=Sedgwick+Ave+Display&family=Sedgwick+Ave&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/fx.css" />
+</head>
+<body>
+  <!-- écran de démarrage (1 fois par visite, clic pour passer) -->
+  <div id="boot">
+    <div class="boot-inner">
+      <p class="boot-logo" id="bootLogo">PORTFOLIO</p>
+      <pre id="bootLog"></pre>
+      <div class="boot-bar"><span id="bootBar"></span></div>
+      <p id="bootPress" hidden>PRESS START</p>
+    </div>
+    <span class="boot-skip">clic pour passer</span>
+  </div>
+  <div class="crt" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div id="levelFlash" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="stars-bg" id="starsBg" aria-hidden="true"></div>
+
+  <!-- ===== HUD ===== -->
+  <header class="hud">
+    <span class="hud-xp" id="hudXp">XP: MONTAGE LVL 07</span>
+    <nav class="hud-nav">
+      <a href="#level1">Profil</a> | <a href="#level2">Montages</a> | <a href="#level3">Playlists</a> | <a href="#level4">Avis</a> | <a href="#level5">Contact</a>
+    </nav>
+    <span class="hud-player"><span class="rec">● REC</span><span id="tc">00:00:00:00</span><span class="heart">♥</span><span class="hp"><span id="xpFill"></span></span>PLAYER 01</span>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="sun" aria-hidden="true"></div><div class="hero-sky" aria-hidden="true"></div>
+    <div class="cloud c1"></div><div class="cloud c2"></div>
+    <div class="hero-screen">
+      <p class="hero-year" id="heroName">TON PSEUDO</p>
+      <h1 class="hero-title">PORT<span>FOLIO</span></h1>
+      <p class="hero-sub" id="heroJob">MONTEUR VIDÉO</p>
+      <a href="#level1" class="btn-start">PRESS START</a>
+    </div>
+    <img class="hero-avatar pixel" id="heroAvatar" src="assets/avatar.svg" alt="" />
+    <div class="ground"></div>
+  </section>
+
+  <div class="marquee"><div class="marquee-track" data-text="Meet the player"></div></div>
+
+  <!-- ===== LEVEL 01 : PROFIL ===== -->
+  <section class="level" id="level1">
+    <div class="level-head reveal">
+      <h2><span>Level</span> 01</h2>
+      <p class="level-sub">Meet the player</p>
+      <p class="level-name" id="playerName">TON PSEUDO</p>
+    </div>
+
+    <div class="profile">
+      <div class="console reveal">
+        <div class="console-top">
+          <span class="dpad"></span>
+          <div class="console-screen"><img class="pixel" id="profileAvatar" src="assets/avatar.svg" alt="Photo de profil" /></div>
+          <span class="abtn"></span>
+        </div>
+        <div class="console-bottom"><span></span></div>
+      </div>
+
+      <div class="win win-pink reveal" style="--r:1.5deg">
+        <div class="win-bar"><span class="win-title">bio.txt</span><span class="win-btns"><i></i><i></i><i></i></span></div>
+        <div class="win-body bio" id="bioBox"></div>
+      </div>
+
+      <div class="zine reveal" style="--r:-2deg">
+        <div class="zine-label">&gt;&gt; ARMES !!</div>
+        <ul class="tools" id="toolsList"></ul>
+      </div>
+
+      <div class="zine zine-dark reveal" style="--r:1deg">
+        <div class="zine-label">&gt;&gt; STATS</div>
+        <div id="statsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee alt"><div class="marquee-track" data-text="Missions"></div></div>
+
+  <div class="timeline" data-label="SEQ_MONTAGES"></div>
+
+  <!-- ===== LEVEL 02 : MONTAGES ===== -->
+  <section class="level" id="level2">
+    <div class="level-head reveal">
+      <h2><span>Level</span> 02</h2>
+      <p class="level-sub">Missions accomplies</p>
+    </div>
+    <div class="videos" id="videosGrid"></div>
+  </section>
+
+  <div class="marquee"><div class="marquee-track" data-text="Playlists"></div></div>
+
+  <!-- ===== LEVEL 03 : PLAYLISTS ===== -->
+  <section class="level" id="level3">
+    <div class="level-head reveal">
+      <h2><span>Level</span> 03</h2>
+      <p class="level-sub">Bangers en série</p>
+    </div>
+    <div class="playlists" id="playlistsGrid"></div>
+  </section>
+
+  <div class="marquee alt"><div class="marquee-track" data-text="Avis clients"></div></div>
+
+  <!-- ===== LEVEL 04 : AVIS ===== -->
+  <section class="level" id="level4">
+    <div class="level-head reveal">
+      <h2><span>Level</span> 04</h2>
+      <p class="level-sub">Ce que disent les clients</p>
+    </div>
+    <div class="reviews" id="reviewsGrid"></div>
+  </section>
+
+  <div class="marquee"><div class="marquee-track" data-text="Contact"></div></div>
+
+  <div class="timeline" data-label="SEQ_FINAL"></div>
+
+  <!-- ===== LEVEL 05 : CONTACT ===== -->
+  <section class="level" id="level5">
+    <div class="level-head reveal">
+      <h2><span>Level</span> 05</h2>
+      <p class="level-sub">Rejoins la partie</p>
+    </div>
+    <div class="contact reveal">
+      <div class="win win-dark">
+        <div class="win-bar"><span class="win-title">contact.exe</span><span class="win-btns"><i></i><i></i><i></i></span></div>
+        <div class="win-body contact-body" id="contactBox"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="ground"></div>
+    <a href="#" class="btn-start small">CONTINUE ?</a>
+    <p class="footer-note">LAST UPDATED: <span id="lastUpdate"></span></p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/fx.js"></script>
+</body>
+</html>

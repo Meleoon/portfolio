@@ -24,10 +24,7 @@ const SITE = {
   // style : "rose", "gris" ou "verrouille" (affiché comme pas encore débloqué). Sans style = noir/vert.
   logiciels: [
     { nom: "Premiere Pro", style: "rose" },
-    { nom: "After Effects" },
     { nom: "DaVinci", style: "gris" },
-    { nom: "Blender" },
-    { nom: "Photoshop" },
     { nom: "CapCut", style: "verrouille" },
   ],
 

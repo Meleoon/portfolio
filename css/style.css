@@ -135,15 +135,20 @@ body.booting, html:has(> body.booting) { overflow: hidden; }
 .vf-info { position: absolute; bottom: 5px; left: 38px; }
 .vf-bat { position: absolute; bottom: 5px; right: 38px; }
 /* flèche « appuie ici bg » vers les onglets (pointe sous « À propos ») */
-.tap-note { position: absolute; z-index: 5; top: 8px; left: var(--tip-x, 70%); width: 60px; height: 52px; pointer-events: none; translate: -10px 0; }
-.tap-note svg { width: 60px; height: 52px; overflow: visible; }
-.tap-note path { fill: none; stroke: var(--black); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-/* étiquette à droite de la flèche : ne recouvre pas le grand titre */
-.tap-note span { position: absolute; top: 44px; left: 40px; white-space: nowrap; font: 400 26px/1 var(--f-graff); color: var(--black);
-  background: var(--paper); border: 2px solid var(--black); box-shadow: 3px 3px 0 var(--pink); padding: 4px 10px 6px; rotate: 4deg; }
-.tap-note { animation: nudge 1.6s steps(2) infinite; }
-@keyframes nudge { 50% { translate: -14px -4px; } }
-@media (max-width: 560px) { .tap-note span { font-size: 20px; left: auto; right: 36px; rotate: -4deg; } }
+/* --w = largeur de la flèche ; la pointe est à 1/6 de sa largeur */
+.tap-note { --w: 130px; position: absolute; z-index: 5; top: 6px; left: var(--tip-x, 70%); width: var(--w); pointer-events: none;
+  translate: calc(var(--w) / -6) 0; animation: nudge 1.6s steps(2) infinite; }
+.tap-note svg { display: block; width: var(--w); height: calc(var(--w) * .87); overflow: visible; }
+.tap-note path { fill: none; stroke: var(--black); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+/* étiquette sous le pied de la flèche, côté droit : ne recouvre pas le grand titre */
+.tap-note span { position: absolute; top: calc(var(--w) * .82); left: calc(var(--w) * .72); translate: -50% 0; rotate: 4deg; white-space: nowrap;
+  font: 400 46px/1 var(--f-graff); color: var(--black); background: var(--paper); border: 3px solid var(--black);
+  box-shadow: 5px 5px 0 var(--pink); padding: 6px 16px 10px; }
+@keyframes nudge { 50% { translate: calc(var(--w) / -6 - 5px) -6px; } }
+@media (max-width: 560px) {
+  .tap-note { --w: 92px; }
+  .tap-note span { font-size: 30px; left: calc(var(--w) * .45); rotate: -3deg; }
+}
 
 /* bureau + fenêtres déplaçables */
 .desk { position: relative; height: 560px; }
@@ -189,7 +194,7 @@ body.booting, html:has(> body.booting) { overflow: hidden; }
 @media (max-width: 560px) {
   .desk { grid-template-columns: 1fr; }
   .vf-info { display: none; }
-  .hero { padding-top: 104px; } /* place pour la flèche « appuie ici bg » au-dessus du titre */
+  .hero { padding-top: 150px; } /* place pour la flèche « appuie ici bg » au-dessus du titre */
 }
 
 /* ---------- bandeaux défilants ---------- */

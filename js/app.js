@@ -278,6 +278,16 @@
   const hint = () => ($("#bioHint").style.display = bio.scrollHeight > bio.clientHeight + 4 ? "" : "none");
   hint(); addEventListener("resize", hint);
 
+  /* ---------- flèche « appuie ici bg » : la pointe tombe sous l'onglet « À propos » ---------- */
+  const note = $("#tapNote"), aboutTab = $('[data-tab="a-propos"]');
+  const placeNote = () => {
+    if (!note || !aboutTab) return;
+    const t = aboutTab.getBoundingClientRect(), h = note.parentElement.getBoundingClientRect();
+    note.style.setProperty("--tip-x", `${t.left + t.width / 2 - h.left}px`);
+  };
+  placeNote(); addEventListener("resize", placeNote);
+  document.fonts?.ready.then(placeNote); // la largeur des onglets change quand la police pixel arrive
+
   /* ---------- fenêtres déplaçables (bureau, écrans larges) ---------- */
   const desk = $("#desk");
   const wide = matchMedia("(min-width: 961px)");

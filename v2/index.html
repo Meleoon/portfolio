@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meleon — Portfolio</title>
+  <meta name="description" content="Portfolio de montage vidéo : shorts, vidéos longues, playlists et contact." />
+  <link rel="icon" href="../assets/avatar.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Silkscreen:wght@400;700&family=IBM+Plex+Mono:wght@400;600;700&family=Sedgwick+Ave+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- amorce de film : mire + compte à rebours (1 fois par visite, clic pour passer) -->
+  <div class="leader" id="leader" aria-hidden="true">
+    <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="count-ring"><span id="leaderNum">3</span></div>
+    <p class="leader-skip">clic pour passer</p>
+  </div>
+  <canvas id="grain" aria-hidden="true"></canvas>
+
+  <!-- ===== HUD ===== -->
+  <header class="hud">
+    <a class="hud-logo" href="#top"><img id="hudAvatar" alt="" /><span id="hudName">MELEON</span></a>
+    <nav class="hud-nav" aria-label="Sections">
+      <a href="#profil">Profil</a><a href="#montages">Montages</a><a href="#playlists">Playlists</a><a href="#avis" id="navAvis">Avis</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="hud-rec" aria-hidden="true"><span class="dot"></span>REC <span id="tc">00:00:00:00</span></div>
+    <a class="btn btn-lime hud-cta" href="#contact">On bosse ? →</a>
+    <div class="hud-xp" aria-hidden="true"><span id="xp"></span></div>
+  </header>
+
+  <!-- ===== HERO : bureau ===== -->
+  <section class="hero" id="top">
+    <div class="vf" aria-hidden="true">
+      <span class="vf-c c-tl"></span><span class="vf-c c-tr"></span><span class="vf-c c-bl"></span><span class="vf-c c-br"></span>
+      <span class="vf-rec"><span class="dot"></span>REC</span>
+      <span class="vf-tc" id="vfTc">00:00:00:00</span>
+      <span class="vf-info">1080p · 60 fps · 1/120</span>
+      <span class="vf-bat">BAT ▮▮▮▯</span>
+    </div>
+
+    <div class="wrap">
+      <h1 class="hero-name"><span id="heroName">MELEON</span></h1>
+      <div class="hero-grid">
+        <div class="hero-left">
+          <p class="punch">Je coupe <mark class="m-pink">tout</mark><br /><mark class="m-lav">ce qui</mark> <mark class="m-yellow">ennuie.</mark></p>
+          <p class="hero-intro" id="heroIntro"></p>
+          <div class="hero-btns">
+            <a class="btn btn-black" href="#montages">Voir les montages →</a>
+            <a class="btn btn-paper" href="#contact">Me contacter</a>
+          </div>
+          <p class="psst"><b>PSST</b> Les fenêtres se déplacent. <button class="btn-mini" id="tidy" type="button">Ranger</button></p>
+        </div>
+
+        <div class="desk" id="desk">
+          <figure class="win w-avatar" style="--x:2%;--y:0%;--w:250px;--rot:-3deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">player_01.png</span><span class="win-x">×</span></div>
+            <div class="win-body"><img id="deskAvatar" alt="Photo de profil de Meleon" /><figcaption id="deskCaption"></figcaption></div>
+          </figure>
+
+          <div class="win w-views" id="wViews" style="--x:50%;--y:2%;--w:290px;--rot:2deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">vues.live</span><span class="win-x">×</span></div>
+            <div class="win-body"><p class="big" id="viewsCount" data-count="0">0</p><p>vues sur les shorts que j'ai montés. Et ça continue de monter.</p></div>
+          </div>
+
+          <div class="sticker" style="--x:78%;--y:30%;--rot:8deg"><span>DISPO<small>nouveaux projets</small></span></div>
+
+          <div class="win w-todo" style="--x:0%;--y:66%;--w:250px;--rot:2deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">todo.txt</span><span class="win-x">×</span></div>
+            <div class="win-body"><ul class="todo" id="todo"></ul></div>
+          </div>
+
+          <div class="win w-tl" style="--x:42%;--y:58%;--w:340px;--rot:-1.5deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">seq_01.prproj</span><span class="win-x">×</span></div>
+            <div class="win-body">
+              <div class="mini-tl" aria-hidden="true">
+                <div><b>V2</b><span style="--l:8%;--w:18%" class="k-pink"></span><span style="--l:52%;--w:14%" class="k-pink"></span></div>
+                <div><b>V1</b><span style="--l:0%;--w:30%" class="k-lav"></span><span style="--l:31%;--w:22%" class="k-lav"></span><span style="--l:54%;--w:40%" class="k-lav"></span></div>
+                <div><b>A1</b><span style="--l:0%;--w:62%" class="k-mint"></span><span style="--l:64%;--w:30%" class="k-mint"></span></div>
+                <i class="mini-play"></i>
+              </div>
+            </div>
+          </div>
+
+          <span class="pstar" style="--x:44%;--y:44%;--rot:0deg"></span>
+          <span class="pstar small" style="--x:92%;--y:6%;--rot:20deg"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee"><div class="marquee-track" data-items="Montage|Shorts|Motion design|Sound design|Dispo maintenant"></div></div>
+
+  <!-- ===== CHIFFRES ===== -->
+  <section class="numbers"><div class="wrap num-grid" id="numGrid"></div></section>
+
+  <!-- ===== PROFIL ===== -->
+  <section class="sec sec-dark" id="profil">
+    <div class="wrap profile">
+      <div class="lvl-head reveal">
+        <p class="lvl" data-level></p>
+        <h2 class="cut">Meet the player</h2>
+        <p class="lvl-name" id="playerName"></p>
+        <p class="lvl-note">Tout ce qu'il faut savoir avant de lancer la partie.</p>
+      </div>
+
+      <div class="win win-pinkp bio-win reveal">
+        <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">bio.txt</span><span class="win-x">×</span></div>
+        <div class="win-body scroll bio" id="bio" tabindex="0"></div>
+        <p class="scroll-hint" id="bioHint">(ça se scrolle)</p>
+      </div>
+
+      <div class="profile-side">
+        <div class="win reveal">
+          <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">armes.exe</span><span class="win-x">×</span></div>
+          <div class="win-body"><ul class="tools" id="tools"></ul></div>
+        </div>
+        <div class="win win-black reveal">
+          <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">stats.sav</span><span class="win-x">×</span></div>
+          <div class="win-body" id="stats"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tl" data-seq="SEQ_01 — MONTAGES"></div>
+
+  <!-- ===== MONTAGES ===== -->
+  <section class="sec sec-paper" id="montages">
+    <div class="wrap">
+      <div class="work-head reveal">
+        <div>
+          <span class="tag-black" data-level></span>
+          <h2 class="h-big cut">Des montages<br />qui tournent</h2>
+        </div>
+        <span class="outline-count" id="workCount">00</span>
+      </div>
+      <div id="longs"></div>
+      <h3 class="sub-label reveal" id="shortsLabel">&gt;&gt; Meilleurs shorts !!</h3>
+      <div class="cards" id="shorts"></div>
+    </div>
+  </section>
+
+  <div class="marquee alt"><div class="marquee-track" data-items="Playlists|À regarder d'une traite|Shorts"></div></div>
+
+  <!-- ===== PLAYLISTS ===== -->
+  <section class="sec sec-dark" id="playlists">
+    <div class="wrap">
+      <span class="tag-lime" data-level></span>
+      <h2 class="h-big cut reveal">Bangers en série</h2>
+      <div id="playlistList"></div>
+    </div>
+  </section>
+
+  <!-- ===== AVIS (masquable via afficherAvis dans data.js) ===== -->
+  <div class="marquee" id="mqAvis"><div class="marquee-track" data-items="Avis clients|Ils en parlent"></div></div>
+  <section class="sec sec-paper" id="avis">
+    <div class="wrap">
+      <span class="tag-black" data-level></span>
+      <h2 class="h-big cut reveal">Kind words</h2>
+      <div class="reviews" id="reviews"></div>
+    </div>
+  </section>
+
+  <div class="tl" data-seq="SEQ_02 — FINAL"></div>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="sec sec-lime contact" id="contact">
+    <div class="wrap">
+      <span class="tag-black" data-level></span>
+      <h2 class="h-big cut reveal">On monte ta<br />prochaine vidéo ?</h2>
+      <p class="contact-status" id="contactStatus"></p>
+      <div class="contact-btns" id="contactBtns"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a class="btn btn-lime" href="#top">Continue ? ↑</a>
+    <p>LAST UPDATED : <span id="lastUpdate"></span></p>
+    <div class="ground" aria-hidden="true"></div>
+  </footer>
+
+  <a class="vbadge" href="../">V2 · voir la V1 →</a>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="../js/data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

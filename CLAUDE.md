@@ -12,6 +12,13 @@ Hébergé sur GitHub, déployé automatiquement par Netlify (dossier de publicat
 - `assets/avatar.svg` — avatar provisoire → à remplacer par la vraie photo de profil (`assets/avatar.png`)
 - `assets/refs/` — les 2 images de référence de la DA (à regarder avant toute modif visuelle)
 
+## V2 en test (`v2/`)
+Deuxième version du site, en ligne sur `/v2/` pour comparer avec la V1 (racine). Elle lit le **même** `js/data.js`
+(chemins d'assets préfixés `../` dans `v2/app.js`). Mise en page « bureau » (gros nom, fenêtres déplaçables, cartes
+avec gros chiffres, rangée de stats) + effets vidéo : amorce mire/compte à rebours, viseur caméra, timecode REC,
+timelines V2/V1/A1, coupes franches RVB sur les titres, OSD magnéto au survol, grain. Texte courant en IBM Plex Mono
+pour la lisibilité. Quand le choix est fait : soit supprimer `v2/`, soit déplacer son contenu à la racine.
+
 ## Direction artistique (à respecter)
 Mélange de deux références :
 1. **Zine vert/noir** (`ref-zine-vert.jpg`) : vert lime + noir, bordures noires épaisses, ombres dures décalées,

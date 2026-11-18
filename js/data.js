@@ -45,16 +45,17 @@ const SITE = {
 
   // Tes montages : colle les liens YouTube.
   // format : "long" (vidéo classique, en haut) ou "short" (vertical, dans la grille des shorts)
+  // chaine (optionnel) : la chaîne pour qui tu as monté la vidéo
   // vues / likes (optionnel) : chiffres affichés sur la carte — relevés sur YouTube le 18 nov 2026, à mettre à jour à la main
   montages: [
-    { format: "long",  lien: "https://www.youtube.com/watch?v=eFQUxnCRSOY", titre: "Comment construire un bon RANDOMIZER ?", desc: "Vidéo longue montée pour Azurhys.", tags: ["Vidéo longue"] },
+    { format: "long",  lien: "https://www.youtube.com/watch?v=eFQUxnCRSOY", chaine: "Azurhys", titre: "Comment construire un bon RANDOMIZER ?", desc: "Vidéo longue montée pour Azurhys.", tags: ["Vidéo longue"] },
 
-    { format: "short", lien: "https://www.youtube.com/shorts/dcV1B0Rk53A", vues: 754868, likes: 22488, titre: "Tu savais que tu pouvais faire ça dans Minecraft ??", desc: "Short pour Kapy.", tags: ["Minecraft"] },
-    { format: "short", lien: "https://www.youtube.com/shorts/6mLLCHNnQ4I", vues: 266364, likes: 13067, titre: "Pourquoi Spider-Man est le seul à souffrir lors du snap ?", desc: "Short pour cl3o Films.", tags: ["Ciné"] },
-    { format: "short", lien: "https://www.youtube.com/shorts/yuVUkFuuWw8", vues: 229424, likes: 9857, titre: "Avec qui Norn et Aisha se sont mariées dans Mushoku Tensei ?", desc: "Short pour cl3o.", tags: ["Anime"] },
-    { format: "short", lien: "https://www.youtube.com/shorts/ix84ni1XxVo", vues: 344882, likes: 6200, titre: "Cette orbe d'XP est GIGANTESQUE !!", desc: "Short pour Kapy.", tags: ["Minecraft"] },
-    { format: "short", lien: "https://www.youtube.com/shorts/YB-ljdtEUFI", vues: 225848, likes: 5909, titre: "Tu peux dépasser la limite de Minecraft ?!!", desc: "Short pour Kapy.", tags: ["Minecraft"] },
-    { format: "short", lien: "https://www.youtube.com/shorts/12uaXPhMFOA", vues: 15942, likes: 552, titre: "Est-ce que Baggy aura un power up ?", desc: "Short pour azurayte.", tags: ["Anime"] },
+    { format: "short", lien: "https://www.youtube.com/shorts/dcV1B0Rk53A", chaine: "Kapy", vues: 754868, likes: 22488, titre: "Tu savais que tu pouvais faire ça dans Minecraft ??", desc: "Short pour Kapy.", tags: ["Minecraft"] },
+    { format: "short", lien: "https://www.youtube.com/shorts/6mLLCHNnQ4I", chaine: "cl3o Films", vues: 266364, likes: 13067, titre: "Pourquoi Spider-Man est le seul à souffrir lors du snap ?", desc: "Short pour cl3o Films.", tags: ["Ciné"] },
+    { format: "short", lien: "https://www.youtube.com/shorts/yuVUkFuuWw8", chaine: "cl3o", vues: 229424, likes: 9857, titre: "Avec qui Norn et Aisha se sont mariées dans Mushoku Tensei ?", desc: "Short pour cl3o.", tags: ["Anime"] },
+    { format: "short", lien: "https://www.youtube.com/shorts/ix84ni1XxVo", chaine: "Kapy", vues: 344882, likes: 6200, titre: "Cette orbe d'XP est GIGANTESQUE !!", desc: "Short pour Kapy.", tags: ["Minecraft"] },
+    { format: "short", lien: "https://www.youtube.com/shorts/YB-ljdtEUFI", chaine: "Kapy", vues: 225848, likes: 5909, titre: "Tu peux dépasser la limite de Minecraft ?!!", desc: "Short pour Kapy.", tags: ["Minecraft"] },
+    { format: "short", lien: "https://www.youtube.com/shorts/12uaXPhMFOA", chaine: "azurayte", vues: 15942, likes: 552, titre: "Est-ce que Baggy aura un power up ?", desc: "Short pour azurayte.", tags: ["Anime"] },
   ],
 
   // Playlists portfolio : colle le lien de la playlist (avec list=...)

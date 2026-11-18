@@ -36,53 +36,19 @@
   $("#hudName").textContent = S.pseudo.toUpperCase();
   ["#hudAvatar", "#deskAvatar"].forEach((s) => ($(s).src = asset(S.avatar)));
   $("#deskCaption").textContent = `>> ${S.pseudo}, ${S.metier.toLowerCase()}`;
-  $("#heroIntro").innerHTML = `<b>${esc(S.metier)}.</b> ${esc(S.bio.role)}. ${esc(S.bio.mission)}`;
+  // intro du hero : la spécialité en étiquette, puis la mission en une phrase
+  $("#heroIntro").innerHTML = `<b>${esc(S.bio.role.split(/,\s*/).join(" · "))}</b><span>${esc(S.bio.mission)}</span>`;
   $("#playerName").textContent = S.pseudo;
   $("#lastUpdate").textContent = S.derniereMaj;
   $("#contactStatus").textContent = S.bio.statut;
 
-  /* ---------- espace de travail du hero : moniteur, chutier, timeline ---------- */
-  // le « showreel » = les montages du plus vu au moins vu
-  const reel = S.montages.filter((m) => videoId(m.lien)).sort((a, b) => (b.vues || 0) - (a.vues || 0));
-  const shortName = (t, n = 34) => (t.length > n ? t.slice(0, n - 1).trim() + "…" : t);
-
-  // chutier : un rush par montage
-  $("#bin").innerHTML = reel.slice(0, 5).map((m, i) => `
-    <li data-i="${i}"><a href="#montages">
-      <i class="ico ${m.format === "short" ? "ico-short" : "ico-long"}" aria-hidden="true"></i>
-      <span class="bin-n">${esc(shortName(m.titre))}<small>${esc(m.chaine || "")}</small></span>
-      <b>${m.vues ? num(m.vues) : "—"}</b>
-    </a></li>`).join("");
-
-  // timeline : V1 = les montages (largeur selon les vues), V2 = habillage, A1 = son
-  const tlMax = Math.max(1, ...reel.slice(0, 5).map((m) => m.vues || 1));
-  $("#miniTl").innerHTML = `
-    <div class="mt-row"><b>V2</b><span class="mt-lane"><i class="k-pink" style="--l:6%;--w:14%">TITRE</i><i class="k-pink" style="--l:44%;--w:12%">ZOOM</i><i class="k-pink" style="--l:74%;--w:14%">SFX</i></span></div>
-    <div class="mt-row"><b>V1</b><span class="mt-lane flow">${reel.slice(0, 5).map((m) => `<i class="k-lav" style="--g:${(1 + (m.vues || 1) / tlMax * 2).toFixed(2)}">${esc(m.chaine || "clip")}</i>`).join("")}</span></div>
-    <div class="mt-row"><b>A1</b><span class="mt-lane flow"><i class="k-mint" style="--g:3">musique.wav</i><i class="k-mint" style="--g:1.4">whoosh.wav</i></span></div>
-    <i class="mini-play"></i>`;
-
-  // moniteur programme : enchaîne les montages en coupes franches, comme un showreel
-  const screen = $("#monScreen"), cap = $("#monCaption"), count = $("#monCount"), scrub = $("#monScrub");
-  let clip = -1;
-  const showClip = () => {
-    if (!reel.length) return;
-    clip = (clip + 1) % reel.length;
-    const m = reel[clip];
-    screen.style.backgroundImage = `url('https://i.ytimg.com/vi/${videoId(m.lien)}/hqdefault.jpg')`;
-    cap.innerHTML = `<b>${esc(m.chaine || S.pseudo)}</b> ${esc(m.titre)}`;
-    $("#monViews").textContent = m.vues ? `${num(m.vues)} vues` : "";
-    $("#monViews").hidden = !m.vues;
-    count.textContent = `${pad(clip + 1)} / ${pad(reel.length)}`;
-    $$("#bin li").forEach((li) => li.classList.toggle("on", +li.dataset.i === clip));
-    if (!RM) {
-      screen.classList.remove("cut"); scrub.classList.remove("run");
-      void screen.offsetWidth;
-      screen.classList.add("cut"); scrub.classList.add("run");
-    }
-  };
-  showClip();
-  if (!RM && reel.length > 1) setInterval(() => { if (!document.hidden) showClip(); }, 3000);
+  if (totalVues) $("#viewsCount").dataset.count = totalVues; else $("#wViews").remove();
+  const todo = [
+    shorts.length && { t: `Monter ${shorts.length} shorts`, ok: true },
+    totalVues && { t: `Passer les ${num(totalVues)} vues`, ok: true },
+    { t: "Ton projet", ok: false },
+  ].filter(Boolean);
+  $("#todo").innerHTML = todo.map((i) => `<li class="${i.ok ? "done" : ""}"><span class="box">${i.ok ? "✓" : ""}</span><span>${esc(i.t)}</span></li>`).join("");
 
   /* ---------- chiffres ---------- */
   const nums = [
@@ -272,7 +238,7 @@
   onScroll();
 
   /* ---------- timecode REC (25 i/s) ---------- */
-  const tcEls = [$("#tc"), $("#vfTc"), $("#monTc")];
+  const tcEls = [$("#tc"), $("#vfTc")];
   if (!RM) {
     const t0 = performance.now();
     let last = -1;
@@ -300,7 +266,7 @@
     const cut = el.classList.contains("cut") ? el : el.querySelector(".cut");
     if (cut && !RM) cut.classList.add("cut-in");
   }
-  const targets = [...$$(".reveal"), ...$$(".cut:not(.reveal)")];
+  const targets = [...$$(".reveal"), ...$$(".cut:not(.reveal)"), $("#viewsCount")].filter(Boolean);
   if ("IntersectionObserver" in window && !RM) {
     const io = new IntersectionObserver((entries) => entries.forEach((en) => {
       if (!en.isIntersecting) return; show(en.target); io.unobserve(en.target);
@@ -335,8 +301,6 @@
       const r = w.getBoundingClientRect(), d = desk.getBoundingClientRect();
       const ox = e.clientX - r.left, oy = e.clientY - r.top;
       w.style.zIndex = ++z; w.classList.add("dragging");
-      // panneau actif surligné, comme dans un logiciel de montage
-      $$("#desk > .active").forEach((p) => p.classList.remove("active")); w.classList.add("active");
       handle.setPointerCapture(e.pointerId);
       const move = (ev) => {
         const dd = desk.getBoundingClientRect();

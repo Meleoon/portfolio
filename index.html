@@ -57,59 +57,47 @@
       <h1 class="hero-name"><span id="heroName">MELEON</span></h1>
       <div class="hero-grid">
         <div class="hero-left">
-          <p class="punch">Je coupe <mark class="m-pink">tout</mark><br /><mark class="m-lav">ce qui</mark> <mark class="m-yellow">ennuie.</mark></p>
+          <p class="punch">Portfolio<br /><mark class="m-pink">monteur</mark> <mark class="m-yellow">vidéo</mark></p>
           <p class="hero-intro" id="heroIntro"></p>
           <div class="hero-btns">
             <a class="btn btn-black" href="#montages">Voir les montages →</a>
             <a class="btn btn-paper" href="#contact">Me contacter</a>
           </div>
-          <p class="psst"><b>PSST</b> Les panneaux se déplacent, comme dans Premiere. <button class="btn-mini" id="tidy" type="button">Ranger</button></p>
+          <p class="psst"><b>PSST</b> Les fenêtres se déplacent. <button class="btn-mini" id="tidy" type="button">Ranger</button></p>
         </div>
 
         <div class="desk" id="desk">
-          <!-- Espace de travail façon logiciel de montage : chaque panneau se déplace par sa barre de titre -->
+          <figure class="win w-avatar" style="--x:2%;--y:0%;--w:250px;--rot:-3deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">player_01.png</span><span class="win-x">×</span></div>
+            <div class="win-body"><img id="deskAvatar" alt="Photo de profil de Meleon" /><figcaption id="deskCaption"></figcaption></div>
+          </figure>
 
-          <!-- moniteur programme : fait défiler les montages les plus vus, clic = section montages -->
-          <div class="win panel w-monitor" style="--x:31%;--y:0%;--w:69%;--rot:1deg">
-            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">Programme : best_of_meleon</span><span class="win-x">×</span></div>
+          <div class="win w-views" id="wViews" style="--x:50%;--y:2%;--w:290px;--rot:2deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">vues.live</span><span class="win-x">×</span></div>
+            <div class="win-body"><p class="big" id="viewsCount" data-count="0">0</p><p>vues sur les shorts que j'ai montés. Et ça continue de monter.</p></div>
+          </div>
+
+          <div class="sticker" style="--x:78%;--y:30%;--rot:8deg"><span>DISPO<small>nouveaux projets</small></span></div>
+
+          <div class="win w-todo" style="--x:0%;--y:66%;--w:250px;--rot:2deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">todo.txt</span><span class="win-x">×</span></div>
+            <div class="win-body"><ul class="todo" id="todo"></ul></div>
+          </div>
+
+          <div class="win w-tl" style="--x:42%;--y:58%;--w:340px;--rot:-1.5deg">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">seq_01.prproj</span><span class="win-x">×</span></div>
             <div class="win-body">
-              <a class="mon-screen" id="monScreen" href="#montages" aria-label="Voir les montages">
-                <span class="mon-safe" aria-hidden="true"></span>
-                <span class="mon-live" aria-hidden="true"><span class="dot"></span>LECTURE</span>
-                <span class="mon-views" id="monViews"></span>
-                <span class="mon-caption" id="monCaption"></span>
-              </a>
-              <div class="mon-scrub" aria-hidden="true"><i id="monScrub"></i></div>
-              <div class="mon-bar" aria-hidden="true">
-                <span class="mon-tc" id="monTc">00:00:00:00</span>
-                <span class="mon-btns">⏮ ◀ ▶ ▶▶ ⏭</span>
-                <span class="mon-count" id="monCount">01 / 01</span>
+              <div class="mini-tl" aria-hidden="true">
+                <div><b>V2</b><span style="--l:8%;--w:18%" class="k-pink"></span><span style="--l:52%;--w:14%" class="k-pink"></span></div>
+                <div><b>V1</b><span style="--l:0%;--w:30%" class="k-lav"></span><span style="--l:31%;--w:22%" class="k-lav"></span><span style="--l:54%;--w:40%" class="k-lav"></span></div>
+                <div><b>A1</b><span style="--l:0%;--w:62%" class="k-mint"></span><span style="--l:64%;--w:30%" class="k-mint"></span></div>
+                <i class="mini-play"></i>
               </div>
             </div>
           </div>
 
-          <!-- le monteur -->
-          <figure class="win panel w-avatar" style="--x:0%;--y:3%;--w:29%;--rot:-3deg">
-            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">moi.png</span><span class="win-x">×</span></div>
-            <div class="win-body"><img id="deskAvatar" alt="Photo de profil de Meleon" /><figcaption id="deskCaption"></figcaption></div>
-          </figure>
-
-          <!-- chutier : les rushs = les montages, avec leurs vues -->
-          <div class="win panel w-bin" style="--x:0%;--y:57%;--w:43%;--rot:1.5deg">
-            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">Projet : chutier</span><span class="win-x">×</span></div>
-            <div class="win-body">
-              <div class="bin-head"><span>Nom</span><span>Vues</span></div>
-              <ul class="bin" id="bin"></ul>
-            </div>
-          </div>
-
-          <!-- timeline -->
-          <div class="win panel w-tl" style="--x:46%;--y:62%;--w:54%;--rot:-1deg">
-            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">Séquence : showreel</span><span class="win-x">×</span></div>
-            <div class="win-body"><div class="mini-tl" id="miniTl" aria-hidden="true"></div></div>
-          </div>
-
-          <div class="sticker" style="--x:84%;--y:84%;--rot:8deg"><span>DISPO<small>nouveaux projets</small></span></div>
+          <span class="pstar" style="--x:44%;--y:44%;--rot:0deg"></span>
+          <span class="pstar small" style="--x:92%;--y:6%;--rot:20deg"></span>
         </div>
       </div>
     </div>

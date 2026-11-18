@@ -27,6 +27,7 @@
   const shorts = S.montages.filter((m) => m.format === "short");
   const totalVues = shorts.reduce((s, m) => s + (m.vues || 0), 0);
   const totalLikes = shorts.reduce((s, m) => s + (m.likes || 0), 0);
+  const record = Math.max(0, ...shorts.map((m) => m.vues || 0)); // le short le plus vu
   const chaines = new Set(S.montages.map((m) => (m.chaine || "").toLowerCase()).filter(Boolean));
 
   /* ---------- textes ---------- */
@@ -52,7 +53,7 @@
   const nums = [
     totalVues && { v: totalVues, f: num, l: "vues sur les shorts montés" },
     totalLikes && { v: totalLikes, f: num, l: "likes récoltés" },
-    { v: S.montages.length, f: String, l: "montages en ligne" },
+    record && { v: record, f: num, l: "vues sur un seul short" },
     chaines.size && { v: chaines.size, f: String, l: "chaînes m'ont fait confiance" },
   ].filter(Boolean);
   $("#numGrid").innerHTML = nums.map((n, i) => `

@@ -32,6 +32,7 @@
 
   /* ---------- textes ---------- */
   document.title = `${S.pseudo} — Portfolio ${S.metier}`;
+  $("#heroName").textContent = S.pseudo.toUpperCase();
   $("#hudName").textContent = S.pseudo.toUpperCase();
   ["#hudAvatar", "#deskAvatar"].forEach((s) => ($(s).src = asset(S.avatar)));
   $("#deskCaption").textContent = `>> ${S.pseudo}, ${S.metier.toLowerCase()}`;

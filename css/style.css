@@ -121,7 +121,7 @@ body.booting, html:has(> body.booting) { overflow: hidden; }
 .punch mark { color: var(--black); padding: 0 .14em; border: 3px solid var(--black); box-shadow: 5px 5px 0 var(--black); display: inline-block; margin: 6px 0; }
 .m-pink { background: var(--pink); } .m-lav { background: var(--lav); } .m-yellow { background: var(--yellow); }
 /* intro : texte plus gros, très contrasté */
-.hero-intro { max-width: 40ch; margin: 0 0 28px; font: 500 20px/1.5 var(--f-body); }
+.hero-intro { max-width: 40ch; margin: 24px 0 28px; font: 500 20px/1.5 var(--f-body); }
 .hero-intro b { display: inline-block; margin-bottom: 10px; background: var(--black); color: var(--lime); padding: 5px 10px; font: 700 13px/1.3 var(--f-lab); text-transform: uppercase; }
 .hero-intro span { display: block; }
 .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; }

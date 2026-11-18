@@ -14,7 +14,7 @@ const SITE = {
 
   // Bio : à réécrire (garde des phrases courtes, style "fiche joueur")
   bio: {
-    hello: "Salut !! Moi c'est Meleon, je monte des vidéos B)",
+    hello: "Salut !! Moi c'est Meleon, je monte des vidéos !",
     role: "Montage, motion design, sound design",
     mission: "Donner du rythme à tes vidéos et garder les gens jusqu'à la fin.",
     statut: "Dispo pour de nouveaux projets.",

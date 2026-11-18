@@ -84,7 +84,7 @@
     if (!vid && !list) return `<div class="vid empty ${vert ? "vert" : ""}">${esc(label)}<br />(colle le lien dans data.js)</div>`;
     const bg = vid ? ` style="background-image:url('https://i.ytimg.com/vi/${vid}/hqdefault.jpg')"` : ` style="background:var(--pink)"`;
     return `<button type="button" class="vid ${vert ? "vert" : ""}" data-vid="${vid || ""}" data-list="${list || ""}"${bg} aria-label="Lire : ${esc(label)}">
-      <span class="play"></span><span class="osd">PLAY ▶</span><span class="osd osd-r">SP</span></button>`;
+      <span class="play"></span></button>`;
   }
   document.addEventListener("click", (e) => {
     const el = e.target.closest("button.vid");
@@ -100,10 +100,10 @@
   });
 
   const feature = (o) => `
-    <article class="feature reveal" style="--c:var(--${o.color})">
+    <article class="feature reveal ${o.cls || ""}" style="--c:var(--${o.color})">
       <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">${esc(o.file)}</span><span class="win-x">×</span></div>
       <div class="feature-body">
-        <div class="feature-media">${player(o)}</div>
+        <div class="feature-media">${o.media || player(o)}</div>
         <div class="feature-info">
           <span class="tag-black">${esc(o.kicker)}</span>
           <h3>${esc(o.label)}</h3>
@@ -119,7 +119,13 @@
   $("#longs").innerHTML = longs.map((m, i) => feature({
     vid: videoId(m.lien), label: m.titre, desc: m.desc, color: "lav",
     file: `montage_${pad(i + 1)}.mp4`, kicker: "Vidéo longue", chip: m.chaine && !(m.desc || "").includes(m.chaine) ? `pour ${m.chaine}` : "",
-  })).join("");
+  })).join("") + feature({
+    // emplacement vide en fin de liste : invite à proposer sa vidéo
+    cls: "slot-card", color: "yellow", file: `montage_${pad(longs.length + 1)}.mp4`, kicker: "Vidéo longue",
+    label: "Ta vidéo ?", desc: "La prochaine vidéo longue de cette liste, ça pourrait être la tienne.",
+    media: `<a class="vid slot" href="#contact"><span class="plus">+</span><span class="slot-t">Ta vidéo ici ?</span><small>LECTURE EN ATTENTE</small></a>`,
+    extra: `<a class="btn btn-black" href="#contact">On en parle →</a>`,
+  });
   if (!shorts.length) $("#shortsLabel").remove();
   $("#shorts").innerHTML = shorts.map((m, i) => {
     const c = COLORS[i % COLORS.length];
@@ -134,7 +140,20 @@
         ${m.chaine ? `<span class="chip">Short pour ${esc(m.chaine)}</span>` : ""}
       </div>
     </article>`;
-  }).join("");
+  }).join("") + (() => {
+    // emplacement vide en fin de liste : « ton short ? »
+    const i = shorts.length, c = COLORS[i % COLORS.length];
+    return `
+    <article class="card c-${c} slot-card reveal" style="--r:${TILTS[i % TILTS.length]}deg">
+      <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-t">${pad(i + 1)} / toi ?</span></div>
+      <div class="card-media"><a class="vid vert slot" href="#contact"><span class="plus">+</span><span class="slot-t">Ton short<br />ici ?</span><small>EN ATTENTE</small></a></div>
+      <div class="card-foot">
+        <div class="card-num"><b>???</b><small>vues à venir</small></div>
+        <h3>Ton prochain short, monté pour qu'on le regarde jusqu'au bout.</h3>
+        <a class="chip" href="#contact">Short pour toi →</a>
+      </div>
+    </article>`;
+  })();
 
   /* ---------- playlists ---------- */
   $("#playlistList").innerHTML = S.playlists.map((p, i) => {

@@ -142,24 +142,7 @@ body.booting { overflow: hidden; }
 }
 .tl-playhead::before { content: ""; position: absolute; top: 0; left: -7px; border: 8px solid transparent; border-top: 10px solid #ff3b3b; }
 
-/* ---------- VHS au survol des vidéos ---------- */
-.yt { transition: filter .1s steps(1); }
-.yt::before {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
-  background: linear-gradient(transparent 0 47%, rgba(255,255,255,.1) 47% 49%, transparent 49% 100%) 0 0/100% 220%;
-  animation: track 2.6s steps(20) infinite;
-}
-.yt::after {
-  content: "▶ PLAY   SP"; position: absolute; top: 8px; left: 10px; z-index: 2; pointer-events: none; opacity: 0;
-  font-family: var(--f-pixel); font-size: 30px; color: var(--white);
-  text-shadow: 2px 0 #ff3b3b, -2px 0 #3cf0ff;
-}
-.yt:not(.empty):hover { filter: saturate(1.15) contrast(1.05); } /* plus de tremblement : trop agressif pour les yeux */
-.yt:not(.empty):hover::before, .yt:not(.empty):hover::after { opacity: 1; }
-.yt.playing, .yt.playing:hover { animation: none; filter: none; }
-.yt.playing::before, .yt.playing::after { display: none; }
-@keyframes track { to { background-position: 0 -220%; } }
-@keyframes vhs { 50% { translate: 2px 0; } }
+/* (plus de filtre VHS sur les miniatures YouTube : elles restent nettes, seul le bouton play réagit au survol) */
 
 /* ---------- touches "fait main" ---------- */
 .win { position: relative; }

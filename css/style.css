@@ -258,6 +258,17 @@ img.pixel { image-rendering: pixelated; }
 .videos.shorts { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px; }
 .video-card.short .yt { aspect-ratio: 9/16; }
 .video-card.short .video-info h3 { font-size: 14px; }
+.vstats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; font-family: var(--f-label); font-size: 13px; }
+.vstats span { background: var(--yellow); color: var(--black); border: 2px solid var(--black); padding: 1px 6px; }
+.vstats span + span { background: var(--pink); }
+.shorts-total { display: flex; gap: 14px; flex-wrap: wrap; margin: -6px 0 26px; }
+.shorts-total span {
+  font-family: var(--f-label); font-size: 14px; color: var(--black);
+  background: var(--lime); border: 3px solid var(--black); box-shadow: var(--hard); padding: 4px 12px;
+}
+.shorts-total span:nth-child(2) { background: var(--pink); }
+.shorts-total span:nth-child(3) { background: var(--yellow); }
+.shorts-total b { font-family: var(--f-pixel); font-weight: 400; font-size: 28px; line-height: 1; margin-right: 4px; }
 .yt {
   position: relative; aspect-ratio: 16/9; background: var(--black) center/cover no-repeat;
   border: 3px solid var(--black); cursor: pointer; overflow: hidden;

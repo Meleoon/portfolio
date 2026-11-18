@@ -2,6 +2,8 @@
 (() => {
   const $ = (s) => document.querySelector(s);
   const esc = (t = "") => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // 754868 -> "755K", 1837328 -> "1,8M"
+  const num = (n) => n >= 1e6 ? `${(n / 1e6).toFixed(1).replace(".", ",").replace(",0", "")}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n);
   const tilt = () => `${(Math.random() * 3 - 1.5).toFixed(1)}deg`;
 
   // --- liens YouTube -> id ---
@@ -84,6 +86,7 @@
         <div class="video-info">
           <h3>${esc(m.titre)}</h3>
           <p>${esc(m.desc)}</p>
+          ${m.vues || m.likes ? `<div class="vstats">${m.vues ? `<span>▶ ${num(m.vues)} vues</span>` : ""}${m.likes ? `<span>♥ ${num(m.likes)}</span>` : ""}</div>` : ""}
           <div class="tags">${(m.tags || []).map((t) => `<span>#${esc(t)}</span>`).join("")}</div>
         </div>
       </div>
@@ -93,6 +96,10 @@
   $("#videosGrid").innerHTML = longs.map((m, i) => card(m, i, false)).join("");
   $("#shortsGrid").innerHTML = shorts.map((m, i) => card(m, i, true)).join("");
   if (!shorts.length) $("#shortsLabel").remove();
+  const totalVues = shorts.reduce((s, m) => s + (m.vues || 0), 0);
+  const totalLikes = shorts.reduce((s, m) => s + (m.likes || 0), 0);
+  if (totalVues) $("#shortsLabel").insertAdjacentHTML("afterend",
+    `<div class="shorts-total reveal"><span><b>${num(totalVues)}</b> vues</span><span><b>${num(totalLikes)}</b> likes</span><span><b>${shorts.length}</b> shorts</span></div>`);
 
   // --- playlists ---
   $("#playlistsGrid").innerHTML = SITE.playlists.map((p) => {
